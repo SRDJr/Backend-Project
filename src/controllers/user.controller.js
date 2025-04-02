@@ -41,7 +41,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     }
 
     //step 3
-    const userExists = User.find(({
+    const userExists = await User.find(({
         $or: [{username}, {email}]
     }));
 
@@ -58,8 +58,9 @@ export const registerUser = asyncHandler(async (req, res) => {
 
     //step 5
     const avatar = await uploadOnCloudinary(avatarLocalPath);
+    const coverImage = null;
     if(coverImageLocalPath){
-        const coverImage = await uploadOnCloudinary(coverImageLocalPath);
+        coverImage = await uploadOnCloudinary(coverImageLocalPath);
     } 
 
     //step 6
